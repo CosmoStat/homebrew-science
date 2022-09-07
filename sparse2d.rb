@@ -1,34 +1,35 @@
 # Homebrew formula for Sparse2D
 
 class Sparse2d < Formula
-  desc "Sparsity tools for 1D and 2D data sets"
+  desc "Sparsity tools for 1D, 2D and 3D data sets developed at CosmoStat."
   homepage "https://github.com/CosmoStat/Sparse2D"
-  url "https://github.com/CosmoStat/Sparse2D/archive/v2.1.1.tar.gz"
-  sha256 "0f47267b907a3fc0403d506fbca0efcc0b1d839df5a4565588961415466fbb31"
+  url "https://github.com/sfarrens/Sparse2D/archive/refs/heads/pycs_build.zip"
+  sha256 "fd7cd7430e97b41ace5172165471f24acc564f78bca47a4a26f33255157f51d4"
+  version "3.0"
 
-  option "without-gcc", "Compile without with Homebrew gcc"
-
-  # Hack to automatically find Homebrew gcc if not provided
-  if build.with? "gcc" and ARGV.none? {|arg| arg.include? "--cc="}
-    ARGV.push "--cc=gcc-" + Formula["gcc"].version.to_s[0]
-  end
-
-  # At present gcc needs to be installed beforehand
-  depends_on "gcc" => :recommended
-  # At present cmake needs to be installed beforehand
+  # Sparse2D depencencies
   depends_on "cmake" => :build
+  depends_on "armadillo"
   depends_on "cfitsio"
+  depends_on "fftw"
+  depends_on "gsl"
+  depends_on "healpix"
+  depends_on "libomp"
+  depends_on "pybind11"
 
+  # Sparse2D installation
   def install
-
-    if build.with? "gcc" and ARGV.none? {|arg| arg.include? "--cc="}
-      puts "Building with Homebrew gcc"
+    system "mkdir build"
+    chdir "build" do
+      system "cmake", "..",
+             "--log-level=VERBOSE",
+             "-DCMAKE_INSTALL_PREFIX=#{prefix}"
+      system "make"
+      system "make install"
     end
-
-    system "cmake", ".", *std_cmake_args
-    system "make"
-    system "make install"
-
   end
+
+  # User messages
+  ohai "To import Python bindings include #{prefix}/python in your PYTHONPATH."
 
 end
