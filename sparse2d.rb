@@ -4,7 +4,7 @@ class Sparse2d < Formula
   desc "Sparsity tools for 1D, 2D and 3D data sets developed at CosmoStat."
   homepage "https://github.com/CosmoStat/Sparse2D"
   url "https://github.com/sfarrens/Sparse2D/archive/refs/heads/pycs_build.zip"
-  sha256 "fd7cd7430e97b41ace5172165471f24acc564f78bca47a4a26f33255157f51d4"
+  sha256 "cb64db681f3ec3ac06743b6cd8f10fefdaa6aaa7ce8092610a6997be5a3fd759"
   version "3.0"
 
   # Sparse2D depencencies
@@ -30,6 +30,6 @@ class Sparse2d < Formula
   end
 
   # User messages
-  ohai "To import Python bindings include #{prefix}/python in your PYTHONPATH."
+  ohai "To import Python bindings add the '#{HOMEBREW_PREFIX}/Cellar/sparse2d/#{version}/python' directory to your PYTHONPATH."
 
 end
