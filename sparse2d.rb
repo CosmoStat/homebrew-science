@@ -7,23 +7,51 @@ class Sparse2d < Formula
   # sha256 "fd7cd7430e97b41ace5172165471f24acc564f78bca47a4a26f33255157f51d4"
   version "3.0"
 
-  # Sparse2D depencencies
+  # Build options
+  option "without-armadillo",
+         "Build without armadillo support, only core Sparse2D tools will be built"
+  option "without-gsl",
+         "Build without gsl support, only core Sparse2D tools will be built"
+  option "without-healpix",
+         "Build without healpix support, only core Sparse2D tools will be built"
+  option "without-pybind11",
+         "Build wihout pubind11 support, Python bindings will not be built"
+  option "without-python",
+         "Build wihout python support, Python bindings will not be built"
+
+  # Depencencies
   depends_on "cmake" => :build
-  depends_on "armadillo"
   depends_on "cfitsio"
   depends_on "fftw"
-  depends_on "gsl"
-  depends_on "healpix"
   depends_on "libomp"
-  depends_on "pybind11"
+  depends_on "armadillo" => :recommended
+  depends_on "gsl" => :recommended
+  depends_on "healpix" => :recommended
+  depends_on "pybind11" => :recommended
+  depends_on "python" => :recommended
 
-  # Sparse2D installation
+  # Set CMake options
+  if build.without? "armadillo" or build.without? "gsl" or build.without? "healpix"
+    $sparse_flag = "-DONLY_SPARSE=ON"
+  else
+    $sparse_flag = ""
+  end
+
+  if build.without? "python" or build.without? "pybind11"
+    $python_flag = "-DBUILD_PYBIND=OFF"
+  else
+    $python_flag = ""
+  end
+
+  # Installation
   def install
     system "mkdir build"
     chdir "build" do
       system "cmake", "..",
              "--log-level=VERBOSE",
-             "-DCMAKE_INSTALL_PREFIX=#{prefix}"
+             "-DCMAKE_INSTALL_PREFIX=#{prefix}",
+             $sparse_flag,
+             $python_flag
       system "make"
       system "make install"
     end
@@ -31,7 +59,8 @@ class Sparse2d < Formula
 
   # Caveats
   def caveats; <<~EOS
-      "To import Python bindings include #{prefix}/python in your PYTHONPATH."
+      To import Python bindings include #{prefix}/python in your PYTHONPATH.
+      e.g. for Bash: export PYTHONPATH="#{prefix}/python:$PYTHONPATH"
     EOS
   end
 
