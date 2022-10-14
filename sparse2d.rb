@@ -1,10 +1,10 @@
 # Homebrew formula for Sparse2D
 
 class Sparse2d < Formula
-  desc "Sparsity tools for 1D, 2D and 3D data sets developed at CosmoStat."
+  desc "Sparsity-based signal processing tools developed at CosmoStat."
   homepage "https://github.com/CosmoStat/Sparse2D"
   url "https://github.com/sfarrens/Sparse2D/archive/refs/heads/pycs_build.zip"
-  sha256 "fd7cd7430e97b41ace5172165471f24acc564f78bca47a4a26f33255157f51d4"
+  # sha256 "fd7cd7430e97b41ace5172165471f24acc564f78bca47a4a26f33255157f51d4"
   version "3.0"
 
   # Sparse2D depencencies
@@ -29,7 +29,10 @@ class Sparse2d < Formula
     end
   end
 
-  # User messages
-  ohai "To import Python bindings include #{prefix}/python in your PYTHONPATH."
+  # Caveats
+  def caveats; <<~EOS
+      To import Python bindings include #{prefix}/python in your PYTHONPATH.
+    EOS
+  end
 
 end
