@@ -31,7 +31,7 @@ class Sparse2d < Formula
 
   # Caveats
   def caveats; <<~EOS
-      To import Python bindings include #{prefix}/python in your PYTHONPATH.
+      "To import Python bindings include #{prefix}/python in your PYTHONPATH."
     EOS
   end
 
