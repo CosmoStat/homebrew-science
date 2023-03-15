@@ -51,7 +51,7 @@ class Sparse2d < Formula
              "-DCMAKE_INSTALL_PREFIX=#{prefix}",
              $sparse_flag,
              $python_flag,
-             "-DPYBIND_INSTALL_PATH=#{prefix}/python",
+             "-DPYBIND_INSTALL_PATH=#{prefix}/python"
       system "make"
       system "make install"
     end
