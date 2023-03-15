@@ -27,7 +27,6 @@ class Sparse2d < Formula
   depends_on "armadillo" => :recommended
   depends_on "gsl" => :recommended
   depends_on "healpix" => :recommended
-  depends_on "pybind11" => :recommended
   depends_on "python" => :recommended
 
   # Set CMake options
@@ -51,7 +50,8 @@ class Sparse2d < Formula
              "--log-level=VERBOSE",
              "-DCMAKE_INSTALL_PREFIX=#{prefix}",
              $sparse_flag,
-             $python_flag
+             $python_flag,
+             "-DPYBIND_INSTALL_PATH=#{prefix}/python",
       system "make"
       system "make install"
     end
