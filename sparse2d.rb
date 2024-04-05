@@ -3,9 +3,8 @@
 class Sparse2d < Formula
   desc "Sparsity-based signal processing tools developed at CosmoStat."
   homepage "https://github.com/CosmoStat/Sparse2D"
-  url "https://github.com/CosmoStat/Sparse2D/archive/refs/tags/v3.0.0.zip"
-  sha256 "7f75f01ec8c09c7e5f1a78439b2481a1f23de6848cf3e78ed5b3c6de63e4c31c"
-  version "3.0"
+  url "https://github.com/CosmoStat/Sparse2D/archive/refs/tags/v3.0.1.zip"
+  sha256 "6f5fe3b03218661383126e68379a0d4123e32ae324a1f80f6c0c5ef644cfa618"
 
   # Build options
   option "without-armadillo",
